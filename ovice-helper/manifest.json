@@ -1,19 +1,18 @@
 {
-  "name": "URL Clipper",
-  "description": "Click the context menu or toolbar icon to copy the decoded URL to clipboard.",
-  "version": "1.1.1",
+  "name": "Ovice Helper",
+  "description": "バーチャルオフィスツール Ovice でコメントを簡単に表示できる拡張機能です。非公式のリアクションもついています。",
+  "version": "1.0.0",
   "manifest_version": 3,
   "permissions": [
     "activeTab",
     "contextMenus",
-    "clipboardWrite",
     "scripting"
   ],
   "background": {
     "service_worker": "background.js"
   },
   "action": {
-    "default_title": "URL Clipper",
+    "default_title": "Ovice Helper",
     "ddefault_popup": "popup.html",
     "default_icon": {
       "16": "icon-16x16.png",
