@@ -24,7 +24,7 @@ function addTextArea() {
     menuBar.insertAdjacentHTML(
         'beforeend',
         `<textarea id="ovice-helper-textarea" class="s-textarea"></textarea>
-        <button id="ovice-helper-send-message" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="const message = document.getElementById('ovice-helper-textarea').value;ovice.chat('<div id=&quot;87-88-17ok-hand.png&quot; class=&quot;break-space&quot;>' + message + '</div>');ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/send.png"></button>`
+        <button id="ovice-helper-send-message" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="const message = document.getElementById('ovice-helper-textarea').value;ovice.chat('<div id=&quot;87-88-17ok-hand.png&quot; class=&quot;break-space&quot;>' + message + '</div>');ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/send-message.png"></button>`
     );
     menuBar.insertAdjacentHTML(
         'beforeend',
