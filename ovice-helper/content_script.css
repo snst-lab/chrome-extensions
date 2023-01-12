@@ -1,4 +1,4 @@
-button.ext-btn-style {
+.s-ext-btn {
     box-sizing: border-box;
     -webkit-tap-highlight-color: transparent;
     cursor: pointer;
@@ -27,4 +27,13 @@ button.ext-btn-style {
     text-decoration: none;
     transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     overflow: visible;
+}
+
+.s-textarea {
+    font-family: inherit;
+    height: auto;
+    resize: none;
+    border-radius: 4px;
+    padding: 4px;
+    letter-spacing: inherit;
 }
