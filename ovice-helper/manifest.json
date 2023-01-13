@@ -1,7 +1,7 @@
 {
   "name": "Ovice Helper",
-  "description": "バーチャルオフィスツール Ovice で、任意のテキストや画像をフキダシで表示できる、非公式の拡張機能です。オリジナルのリアクション付き。",
-  "version": "1.0.0",
+  "description": "バーチャルオフィスツール oVice のリアクション機能を拡張できる非公式プラグインです。オリジナルのリアクション機能に加え、任意のテキストや画像をフキダシで表示できます。",
+  "version": "1.0.1",
   "manifest_version": 3,
   "permissions": [],
   "background": {
