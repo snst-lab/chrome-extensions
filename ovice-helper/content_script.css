@@ -29,6 +29,12 @@
     overflow: visible;
 }
 
+.s-border {
+    width: 1px;
+    height: 36px;
+    background-color: #ddd;
+}
+
 .s-textarea {
     font-family: inherit;
     height: auto;
@@ -36,4 +42,44 @@
     border-radius: 4px;
     padding: 4px;
     letter-spacing: inherit;
+}
+
+.s-preview-file {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    background: center / 60% no-repeat
+        url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png);
+}
+
+.s-preview-file::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    width: inherit;
+    height: inherit;
+    background-color: black;
+    opacity: 0;
+    transition: 0.2s;
+    pointer-events: none;
+}
+
+.s-preview-file:hover::after {
+    opacity: 0.3;
+    transition: 0.2s;
+}
+
+.s-preview-file > img {
+    width: 100%;
+    height: auto;
+    margin: auto;
 }
