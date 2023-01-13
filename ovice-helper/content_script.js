@@ -23,7 +23,7 @@ function main() {
         menuBar.insertAdjacentHTML('beforeend', `<div class="s-border"/>`);
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button id="ovice-helper-toggle-size-selector" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/size.png"></button>`
+            `<button id="ovice-helper-toggle-size-selector" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/change-size.png"></button>`
         );
         menuBarRoot.insertAdjacentHTML(
             'beforeend',
