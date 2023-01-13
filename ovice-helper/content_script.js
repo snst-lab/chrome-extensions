@@ -34,7 +34,7 @@ function main() {
                 <div class='ovice-helper-size s-radio-button' data-size="40">
                     中
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="60">
+                <div class='ovice-helper-size s-radio-button' data-size="64">
                     大
                 </div>
             </div>`

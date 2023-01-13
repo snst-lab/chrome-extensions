@@ -1,6 +1,6 @@
 {
   "name": "Ovice Helper",
-  "description": "バーチャルオフィスツール Ovice でコメントを簡単に表示できる拡張機能です。非公式のリアクションもついています。",
+  "description": "バーチャルオフィスツール Ovice で、任意のテキストや画像をフキダシで表示できる、非公式の拡張機能です。オリジナルのリアクション付き。",
   "version": "1.0.0",
   "manifest_version": 3,
   "permissions": [],
