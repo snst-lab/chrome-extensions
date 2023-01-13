@@ -42,6 +42,11 @@
     border-radius: 4px;
     padding: 4px;
     letter-spacing: inherit;
+    color: #aaa;
+}
+
+.s-textarea.active {
+    color: #333;
 }
 
 .s-preview-file {
@@ -55,9 +60,10 @@
     position: relative;
     cursor: pointer;
     border-radius: 6px;
-    background: center / 60% no-repeat
-        url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png);
+    background: url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png) center / 24px no-repeat;
 }
+
+.s-preview-file.active {}
 
 .s-preview-file::after {
     content: '';
@@ -82,4 +88,38 @@
     width: 100%;
     height: auto;
     margin: auto;
+    background-color: white;
+}
+
+.s-radio-button {
+    cursor: pointer;
+    background-color: white;
+    box-shadow: 0 1px 10px black;
+    margin: 0 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+.s-radio-button:hover {
+    transform-origin: center;
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+.s-radio-button--active {
+    background-color: rgb(62, 133, 233);
+    color: white;
+}
+
+.s-selector {
+    visibility: hidden;
+}
+.s-selector[data-show] {
+    visibility: visible;
 }
