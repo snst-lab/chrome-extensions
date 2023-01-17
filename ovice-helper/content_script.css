@@ -103,7 +103,7 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    transition: 0.2s;
+    transition: transform 0.2s;
 }
 
 .s-radio-button:hover {

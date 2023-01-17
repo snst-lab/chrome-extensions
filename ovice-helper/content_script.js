@@ -1,4 +1,8 @@
-setTimeout(main, 2000);
+setInterval(() => {
+    if (document.querySelectorAll('.ovice-helper').length < 1 && document.querySelector('#MenuBar')) {
+        main();
+    }
+}, 2000);
 
 function main() {
     const menuBarRoot = document.querySelector('#MenuBar');
@@ -6,6 +10,9 @@ function main() {
     const menuBar = document.querySelector('#MenuBar > div:nth-of-type(2)');
 
     const initialize = () => {
+        document.querySelectorAll('.ovice-helper').forEach((e) => {
+            e.remove();
+        });
         menuBar.style.cssText = 'display:flex;align-items:center;';
         reactionsMenu.classList.add('s-selector');
     };
@@ -13,28 +20,77 @@ function main() {
     const addButtons = (buttonIcon, image, soundImageId) => {
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
+            `<button class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
             const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));
             ovice.chat('<div class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; id=&quot;${soundImageId}&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></div>');ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
         );
     };
 
-    const addSizeSelector = () => {
-        menuBar.insertAdjacentHTML('beforeend', `<div class="s-border"/>`);
+    const addSoundSelector = () => {
+        menuBar.insertAdjacentHTML('beforeend', `<div class="ovice-helper s-border"/>`);
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button id="ovice-helper-toggle-size-selector" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/change-size.png"></button>`
+            `<button id="ovice-helper-toggle-sound-selector" class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/sound.png"></button>`
         );
         menuBarRoot.insertAdjacentHTML(
             'beforeend',
-            `<div id="ovice-helper-size-selector" class='s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
-                <div class='ovice-helper-size s-radio-button s-radio-button--active' data-size="24">
+            `<div id="ovice-helper-sound-selector" class='ovice-helper s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
+                <div class='ovice-helper-sound s-radio-button s-radio-button--active' data-sound="ok-hand">
+                    okay
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="love">
+                    love
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="clap">
+                    clap
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="drum">
+                    drum
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="nope">
+                    nope
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="tada">
+                    tada
+                </div>
+            </div>`
+        );
+
+        document.getElementById('ovice-helper-toggle-sound-selector').addEventListener('click', () => {
+            reactionsMenu.removeAttribute('data-show');
+            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
+            document.getElementById('ovice-helper-sound-selector').toggleAttribute('data-show');
+        });
+        document.querySelector('[aria-label="reactions-menu"]').addEventListener('click', () => {
+            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
+            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
+            reactionsMenu.toggleAttribute('data-show', true);
+        });
+        document.querySelectorAll('.ovice-helper-sound').forEach((e) => {
+            e.addEventListener('click', (event) => {
+                document.querySelectorAll('.ovice-helper-sound').forEach((f) => {
+                    f.classList.remove('s-radio-button--active');
+                });
+                event.target.classList.add('s-radio-button--active');
+            });
+        });
+    };
+
+    const addSizeSelector = () => {
+        menuBar.insertAdjacentHTML(
+            'beforeend',
+            `<button id="ovice-helper-toggle-size-selector" class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/change-size.png"></button>`
+        );
+        menuBarRoot.insertAdjacentHTML(
+            'beforeend',
+            `<div id="ovice-helper-size-selector" class='ovice-helper s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
+                <div class='ovice-helper-size s-radio-button s-radio-button--active' data-size="24" data-font-size="18" data-image-size="54">
                     小
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="40">
+                <div class='ovice-helper-size s-radio-button' data-size="40" data-font-size="32" data-image-size="110">
                     中
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="64">
+                <div class='ovice-helper-size s-radio-button' data-size="64" data-font-size="56" data-image-size="220">
                     大
                 </div>
             </div>`
@@ -42,9 +98,11 @@ function main() {
 
         document.getElementById('ovice-helper-toggle-size-selector').addEventListener('click', () => {
             reactionsMenu.removeAttribute('data-show');
+            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
             document.getElementById('ovice-helper-size-selector').toggleAttribute('data-show');
         });
         document.querySelector('[aria-label="reactions-menu"]').addEventListener('click', () => {
+            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
             document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
             reactionsMenu.toggleAttribute('data-show', true);
         });
@@ -59,30 +117,36 @@ function main() {
     };
 
     const addInput = () => {
-        menuBar.insertAdjacentHTML('beforeend', `<input id="ovice-helper-active-input" type="hidden" value="text"/>`);
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<textarea id="ovice-helper-textarea" class="s-textarea"></textarea><figure class="s-preview-file" id="ovice-helper-select-file"><img id="ovice-helper-preview-file"/></figure><input id="ovice-helper-input-file" class="s-input-file" type="file" style="display:none;">`
+            `<input id="ovice-helper-active-input" type="hidden" value="text" class="ovice-helper"/>`
         );
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button id="ovice-helper-send-message" class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
-            const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));
+            `<textarea id="ovice-helper-textarea" class="ovice-helper s-textarea"></textarea><figure  id="ovice-helper-select-file" class="ovice-helper s-preview-file"><img id="ovice-helper-preview-file"/></figure><input id="ovice-helper-input-file" class="ovice-helper s-input-file" type="file" style="display:none;">`
+        );
+        menuBar.insertAdjacentHTML(
+            'beforeend',
+            `<button id="ovice-helper-send-message" class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
+            const sound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound');
+            const sizeSelector = document.querySelector('.ovice-helper-size.s-radio-button--active');
+            const fontSize = Number(sizeSelector.getAttribute('data-font-size'));
+            const imageSize = Number(sizeSelector.getAttribute('data-image-size'));
             const text = document.getElementById('ovice-helper-textarea').value;
             const image = document.getElementById('ovice-helper-preview-file').src;
             let message = '';
             const activeInput = document.getElementById('ovice-helper-active-input');
             switch(activeInput.value){
                 case 'text':
-                    message = '<div id=&quot;87-88-17ok-hand.png&quot; class=&quot;break-space&quot; style=&quot;font-size:' + 0.5 * size + 'px&quot;>' + text + '</div>';
+                    message = '<div id=&quot;' + sound + '&quot; class=&quot;break-space&quot; style=&quot;font-size:' + fontSize + 'px&quot;>' + text + '</div>';
                     break;
                 case 'image':
-                    message = '<img id=&quot;87-88-17ok-hand.png&quot; class=&quot;break-space&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;'+ image +'&quot;/>';
+                    message = '<img id=&quot;' + sound + '&quot; class=&quot;break-space&quot; style=&quot;width:' + imageSize + 'px;height:auto;&quot; src=&quot;'+ image +'&quot;/>';
                     break;
             }
             ovice.chat(message);ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/send-message.png"></button>`
         );
-        menuBar.insertAdjacentHTML('beforeend', `<div class="s-border"/>`);
+        menuBar.insertAdjacentHTML('beforeend', `<div class="ovice-helper s-border"/>`);
 
         const dom = {
             textArea: document.getElementById('ovice-helper-textarea'),
@@ -104,6 +168,7 @@ function main() {
                     type: files[0].type,
                     base64: e.target?.result,
                 };
+                console.log(data.base64)
                 dom.previewfile.src = data.base64;
                 dom.previewfile.classList.add('active');
                 dom.textArea.classList.remove('active');
@@ -124,19 +189,20 @@ function main() {
 
     (() => {
         initialize();
+        addSoundSelector();
         addSizeSelector();
         addInput();
-        addButtons('clap.png', 'clap.png', '87-88-6clapping-hands.png');
-        addButtons('hand.png', 'hand.png', '87-88-17ok-hand.png');
-        addButtons('good.png', 'good.png', '87-88-17ok-hand.png');
-        addButtons('drum.png', 'drum.png', 'drum.png');
-        addButtons('love.png', 'love.png', '111ared-heart.png');
-        addButtons('nope.png', 'nope.png', 'cross-mark.png');
-        addButtons('tada.png', 'tada.png', 'party-popper.png');
-        menuBar.insertAdjacentHTML('beforeend', `<div class="s-border"/>`);
-        addButtons('exclamation.png', 'exclamation.gif', '87-88-17ok-hand.png');
-        addButtons('question.png', 'question.png', '111ared-heart.png');
-        addButtons('sweat.png', 'sweat.gif', '111ared-heart.png');
-        addButtons('kusa.png', 'kusa.gif', 'drum.png');
+        addButtons('clap.png', 'clap.png', 'clap');
+        addButtons('hand.png', 'hand.png', 'ok-hand');
+        addButtons('good.png', 'good.png', 'ok-hand');
+        addButtons('drum.png', 'drum.png', 'drum');
+        addButtons('love.png', 'love.png', 'love');
+        addButtons('nope.png', 'nope.png', 'nope');
+        addButtons('tada.png', 'tada.png', 'tada');
+        menuBar.insertAdjacentHTML('beforeend', `<div class="ovice-helper s-border"/>`);
+        addButtons('exclamation.png', 'exclamation.gif', 'ok-hand');
+        addButtons('question.png', 'question.png', 'love');
+        addButtons('sweat.png', 'sweat.gif', 'love');
+        addButtons('kusa.png', 'kusa.gif', 'drum');
     })();
 }
