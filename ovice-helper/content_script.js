@@ -95,13 +95,13 @@ function main() {
         menuBarRoot.insertAdjacentHTML(
             'afterbegin',
             `<div id="ovice-helper-size-selector" class='ovice-helper s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
-                <div class='ovice-helper-size s-radio-button s-radio-button--active' data-size="24" data-font-size="16" data-image-size="54">
+                <div class='ovice-helper-size s-radio-button s-radio-button--active' data-size="24" data-font-size="16" data-image-size="48">
                     小
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="40" data-font-size="24" data-image-size="110">
+                <div class='ovice-helper-size s-radio-button' data-size="40" data-font-size="24" data-image-size="120">
                     中
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="64" data-font-size="48" data-image-size="220">
+                <div class='ovice-helper-size s-radio-button' data-size="64" data-font-size="36" data-image-size="240">
                     大
                 </div>
             </div>`
@@ -130,7 +130,7 @@ function main() {
     const addInput = () => {
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<input id="ovice-helper-active-input" type="hidden" value="text" class="ovice-helper"/><input id="ovice-helper-input-file" class="ovice-helper" type="file" style="display:none;">`
+            `<input id="ovice-helper-active-input" type="hidden" value="text" class="ovice-helper"/><input id="ovice-helper-input-file" class="ovice-helper" type="file" accept="image/*" style="display:none;">`
         );
         menuBar.insertAdjacentHTML(
             'beforeend',
@@ -184,10 +184,12 @@ function main() {
                     type: files[0].type,
                     base64: e.target?.result,
                 };
-                dom.previewfile.src = data.base64;
-                dom.previewfile.classList.add('active');
-                dom.textArea.classList.remove('active');
-                dom.activeInput.value = 'image';
+                if (/image/.test(data.type)) {
+                    dom.previewfile.src = data.base64;
+                    dom.previewfile.classList.add('active');
+                    dom.textArea.classList.remove('active');
+                    dom.activeInput.value = 'image';
+                }
             };
             if (files[0]) {
                 reader.readAsDataURL(files[0]);
