@@ -40,6 +40,7 @@
     height: auto;
     resize: none;
     border-radius: 4px;
+    width: 10em;
     padding: 4px;
     letter-spacing: inherit;
     color: #aaa;
@@ -49,6 +50,14 @@
     color: #333;
 }
 
+.s-select-file {
+    border: none;
+    padding: 0;
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+}
+
 .s-preview-file {
     width: 40px;
     height: 40px;
@@ -56,14 +65,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 0;
     position: relative;
+    margin: 0;
     cursor: pointer;
     border-radius: 6px;
-    background: url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png) center / 24px no-repeat;
+    background: url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png) center /
+        24px no-repeat;
 }
 
-.s-preview-file.active {}
+.s-preview-file.active {
+}
 
 .s-preview-file::after {
     content: '';
@@ -98,6 +109,7 @@
     margin: 0 10px;
     width: 40px;
     height: 40px;
+    padding: 4px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -122,4 +134,30 @@
 }
 .s-selector[data-show] {
     visibility: visible;
+}
+
+.s-tooltip {
+    position: relative;
+}
+.s-tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: -36px;
+    display: inline-block;
+    box-sizing: content-box;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: inherit;
+    white-space: nowrap;
+    color: white;
+    background-color: #333;
+    letter-spacing: 0.2em;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.s-tooltip:hover::after {
+    opacity: 1;
 }
