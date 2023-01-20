@@ -30,7 +30,7 @@ function main() {
         menuBar.insertAdjacentHTML(
             'beforeend',
             `<button class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
-            const size = 24;ovice.chat('<div id=&quot;${soundImageId}&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></div>');ovice.commitReaction();ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
+            const sound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound'); const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));ovice.chat('<div id=&quot;' + (sound ? sound : '${soundImageId}') + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></div>');ovice.commitReaction();ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
         );
     };
 
@@ -38,19 +38,22 @@ function main() {
         insertBorder();
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button id="ovice-helper-toggle-sound-selector" class="ovice-helper s-tooltip MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" data-tooltip="テキスト・画像送信時の音声設定"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/music.png"></button>`
+            `<button id="ovice-helper-toggle-sound-selector" class="ovice-helper s-tooltip MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" data-tooltip="リアクション時の音声設定"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/music.png"></button>`
         );
         menuBarRoot.insertAdjacentHTML(
             'afterbegin',
             `<div id="ovice-helper-sound-selector" class='ovice-helper s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
                 <div class='ovice-helper-sound s-radio-button s-radio-button--active' data-sound="">
-                    None
+                    Unset
                 </div>
                 <div class='ovice-helper-sound s-radio-button' data-sound="ok-hand" onclick="ovice.playSound('/assets/reaction/sword.mp3',0.08)">
                     Okay
                 </div>
                 <div class='ovice-helper-sound s-radio-button' data-sound="love" onclick="ovice.playSound('/assets/reaction/love.mp3',0.3)">
                     Love
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="hi5" onclick="ovice.playSound('/assets/reaction/high_five.mp3',0.12)">
+                    Five
                 </div>
                 <div class='ovice-helper-sound s-radio-button' data-sound="clap" onclick="ovice.playSound('/assets/reaction/clapping.mp3',0.03)">
                     Clap
@@ -64,6 +67,7 @@ function main() {
                 <div class='ovice-helper-sound s-radio-button' data-sound="tada" onclick="ovice.playSound('/assets/reaction/tada.mp3',0.04)">
                     Tada
                 </div>
+
             </div>`
         );
 
@@ -90,7 +94,7 @@ function main() {
     const addSizeSelector = () => {
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<button id="ovice-helper-toggle-size-selector" class="ovice-helper s-tooltip  MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn"  tabindex="0" type="button" data-tooltip="テキスト・画像サイズ設定"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/size.png"></button>`
+            `<button id="ovice-helper-toggle-size-selector" class="ovice-helper s-tooltip  MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn"  tabindex="0" type="button" data-tooltip="フキダシのサイズ設定"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/size.png"></button>`
         );
         menuBarRoot.insertAdjacentHTML(
             'afterbegin',
@@ -183,9 +187,10 @@ function main() {
                     size: files[0].size,
                     type: files[0].type,
                     base64: e.target?.result,
+                    blob: window.URL.createObjectURL( files[0] )
                 };
                 if (/image/.test(data.type)) {
-                    dom.previewfile.src = data.base64;
+                    dom.previewfile.src = data.blob;
                     dom.previewfile.classList.add('active');
                     dom.textArea.classList.remove('active');
                     dom.activeInput.value = 'image';
@@ -195,7 +200,7 @@ function main() {
                 reader.readAsDataURL(files[0]);
             }
         });
-        dom.textArea.addEventListener('focus', () => {
+        dom.textArea.addEventListener('input', () => {
             dom.activeInput.value = 'text';
             dom.previewfile.classList.remove('active');
             dom.textArea.classList.add('active');
@@ -214,17 +219,17 @@ function main() {
         addSoundSelector();
         addSizeSelector();
         addInput();
-        addButtons('clap.png', 'clap.png', 'clap');
-        addButtons('hand.png', 'hand.png', 'ok-hand');
-        addButtons('good.png', 'good.png', 'ok-hand');
-        addButtons('drum.png', 'drum.png', 'drum');
-        addButtons('love.png', 'love.png', 'love');
-        addButtons('nope.png', 'nope.png', 'nope');
-        addButtons('tada.png', 'tada.png', 'tada');
+        addButtons('clap.png', 'Clap.png', 'clap');
+        addButtons('hand.png', 'Hand.png', 'ok-hand');
+        addButtons('good.png', 'Good.png', 'ok-hand');
+        addButtons('drum.png', 'Drum.png', 'drum');
+        addButtons('love.png', 'Love.png', 'love');
+        addButtons('nope.png', 'Nope.png', 'nope');
+        addButtons('tada.png', 'Tada.png', 'tada');
         insertBorder();
-        addButtons('exclamation.png', 'exclamation.gif', 'ok-hand');
-        addButtons('question.png', 'question.png', 'love');
-        addButtons('sweat.png', 'sweat.gif', 'love');
-        addButtons('kusa.png', 'kusa.gif', 'drum');
+        addButtons('exclamation.png', 'Exclamation.gif', 'ok-hand');
+        addButtons('question.png', 'Question.png', 'love');
+        addButtons('sweat.png', 'Sweat.gif', 'love');
+        addButtons('kusa.png', 'Kusa.gif', 'drum');
     })();
 }
