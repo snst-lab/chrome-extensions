@@ -67,7 +67,6 @@ function main() {
                 <div class='ovice-helper-sound s-radio-button' data-sound="tada" onclick="ovice.playSound('/assets/reaction/tada.mp3',0.04)">
                     Tada
                 </div>
-
             </div>`
         );
 
@@ -134,11 +133,14 @@ function main() {
     const addInput = () => {
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<input id="ovice-helper-active-input" type="hidden" value="text" class="ovice-helper"/><input id="ovice-helper-input-file" class="ovice-helper" type="file" accept="image/*" style="display:none;">`
+            `
+            <input id="ovice-helper-active-input" type="hidden" value="text" class="ovice-helper"/>
+            <input id="ovice-helper-input-file" class="ovice-helper" type="file" accept="image/*" style="display:none;">
+            `
         );
         menuBar.insertAdjacentHTML(
             'beforeend',
-            `<textarea id="ovice-helper-textarea" class="ovice-helper s-textarea"></textarea>`
+            `<div class="s-textarea-container s-tooltip" data-tooltip="Ctrl + Enter でテキスト送信"><textarea id="ovice-helper-textarea" class="ovice-helper s-textarea"></textarea></div>`
         );
         menuBar.insertAdjacentHTML(
             'beforeend',
@@ -166,7 +168,6 @@ function main() {
             ovice.chat(message);ovice.commitReaction();" data-tooltip="テキスト・画像を送信"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/send-message.png"></button>`
         );
         insertBorder();
-
         const dom = {
             textArea: document.getElementById('ovice-helper-textarea'),
             inputFile: document.getElementById('ovice-helper-input-file'),
@@ -181,16 +182,16 @@ function main() {
         dom.inputFile.addEventListener('change', (event) => {
             const files = event.target?.files ? event.target?.files : event.dataTransfer?.files;
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 const data = {
                     name: files[0].name,
                     size: files[0].size,
                     type: files[0].type,
                     base64: e.target?.result,
-                    blob: window.URL.createObjectURL( files[0] )
+                    blobUrl: window.URL.createObjectURL(files[0]),
                 };
                 if (/image/.test(data.type)) {
-                    dom.previewfile.src = data.blob;
+                    dom.previewfile.src = data.base64;
                     dom.previewfile.classList.add('active');
                     dom.textArea.classList.remove('active');
                     dom.activeInput.value = 'image';

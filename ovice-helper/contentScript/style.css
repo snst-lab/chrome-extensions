@@ -35,6 +35,12 @@
     background-color: #ddd;
 }
 
+.s-textarea-container {
+    justify-content: center;
+    align-items: center;
+    display: inline-flex;
+}
+
 .s-textarea {
     font-family: inherit;
     height: auto;
@@ -71,9 +77,6 @@
     border-radius: 6px;
     background: url(https://raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/clip.png) center /
         24px no-repeat;
-}
-
-.s-preview-file.active {
 }
 
 .s-preview-file::after {
