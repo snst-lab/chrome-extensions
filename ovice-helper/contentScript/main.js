@@ -26,11 +26,25 @@ function main() {
         menuBar.insertAdjacentHTML('beforeend', `<div class="ovice-helper s-border"/>`);
     };
 
-    const addButtons = (buttonIcon, image, soundImageId) => {
+    const addButtons = (buttonIcon, image, soundId) => {
         menuBar.insertAdjacentHTML(
             'beforeend',
             `<button class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
-            const sound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound'); const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));ovice.chat('<div id=&quot;' + (sound ? sound : '${soundImageId}') + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></div>');ovice.commitReaction();ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
+            const emojiCodeMap = {
+                hand: '270B',
+                okay: '1F44C',
+                good: '1F44D',
+                clap: '1F44F',
+                drum: '1F941',
+                raised_hands: '1F64C',
+                love: '2764-FE0F',
+                nope: '274C',
+                tada: '1F389',
+            };
+            const selectedSound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound');
+            const sound = selectedSound ? selectedSound : '${soundId}';
+            const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));
+            ovice.chat('<span data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></span>');ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
         );
     };
 
@@ -46,7 +60,7 @@ function main() {
                 <div class='ovice-helper-sound s-radio-button s-radio-button--active' data-sound="">
                     Unset
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="ok-hand" onclick="ovice.playSound('/assets/reaction/sword.mp3',0.08)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="good" onclick="ovice.playSound('/assets/reaction/sword.mp3',0.08)">
                     Okay
                 </div>
                 <div class='ovice-helper-sound s-radio-button' data-sound="love" onclick="ovice.playSound('/assets/reaction/love.mp3',0.3)">
@@ -221,14 +235,14 @@ function main() {
         addSizeSelector();
         addInput();
         addButtons('clap.png', 'Clap.png', 'clap');
-        addButtons('hand.png', 'Hand.png', 'ok-hand');
-        addButtons('good.png', 'Good.png', 'ok-hand');
+        addButtons('hand.png', 'Hand.png', 'good');
+        addButtons('good.png', 'Good.png', 'good');
         addButtons('drum.png', 'Drum.png', 'drum');
         addButtons('love.png', 'Love.png', 'love');
         addButtons('nope.png', 'Nope.png', 'nope');
         addButtons('tada.png', 'Tada.png', 'tada');
         insertBorder();
-        addButtons('exclamation.png', 'Exclamation.gif', 'ok-hand');
+        addButtons('exclamation.png', 'Exclamation.gif', 'good');
         addButtons('question.png', 'Question.png', 'love');
         addButtons('sweat.png', 'Sweat.gif', 'love');
         addButtons('kusa.png', 'Kusa.gif', 'drum');
