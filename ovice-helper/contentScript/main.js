@@ -37,6 +37,7 @@ function main() {
                 clap: '1F44F',
                 drum: '1F941',
                 raised_hands: '1F64C',
+                hi5: '',
                 love: '2764-FE0F',
                 nope: '274C',
                 tada: '1F389',
@@ -44,7 +45,11 @@ function main() {
             const selectedSound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound');
             const sound = selectedSound ? selectedSound : '${soundId}';
             const size = Number(document.querySelector('.ovice-helper-size.s-radio-button--active').getAttribute('data-size'));
-            ovice.chat('<span data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></span>');ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
+            let args = '<span data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></span>';
+            if(selectedSound === 'love' || selectedSound === 'hi5'){
+                args = '<span for=&quot;' + sound + '&quot; data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot;><img width=&quot;40&quot; height=&quot;auto&quot; style=&quot;width:' + size + 'px;height:auto;&quot; src=&quot;//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/image/${image}&quot; /></span>';
+            }
+            ovice.chat(args);ovice.commitReaction();"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/${buttonIcon}"></button>`
         );
     };
 
@@ -75,7 +80,7 @@ function main() {
                 <div class='ovice-helper-sound s-radio-button' data-sound="drum" onclick="ovice.playSound('/assets/reaction/drum.mp3',0.03)">
                     Drum
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="nope" onclick="ovice.playSound('/assets/reaction/nope.mp3',0.05)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="nope" onclick="ovice.playSound('/assets/reaction/nope.mp3',0.08)">
                     Nope
                 </div>
                 <div class='ovice-helper-sound s-radio-button' data-sound="tada" onclick="ovice.playSound('/assets/reaction/tada.mp3',0.04)">
