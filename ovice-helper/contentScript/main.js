@@ -29,7 +29,6 @@ function main() {
             e.remove();
         });
         menuBar.style.cssText = 'display:flex;align-items:center;overflow:visible';
-        reactionsMenu.classList.add('s-selector');
     };
 
     const insertBorder = () => {
