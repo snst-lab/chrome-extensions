@@ -7,7 +7,17 @@ setInterval(() => {
     ) {
         main();
     }
+    if (
+        document.querySelector('#MenuBar').parentNode.querySelectorAll('._alignItems-stretch').length > 0 &&
+        document.querySelector('#MenuBar').parentNode.querySelector('._alignItems-stretch').style.display !== 'contents'
+    ) {
+        showRoomExitButton();
+    }
 }, 2000);
+
+function showRoomExitButton() {
+    document.querySelector('#MenuBar').parentNode.querySelector('._alignItems-stretch').style.cssText = 'display: contents;';
+}
 
 function main() {
     const menuBarRoot = document.querySelector('#MenuBar');
@@ -19,7 +29,6 @@ function main() {
             e.remove();
         });
         menuBar.style.cssText = 'display:flex;align-items:center;overflow:visible';
-        reactionsMenu.classList.add('s-selector');
     };
 
     const insertBorder = () => {
