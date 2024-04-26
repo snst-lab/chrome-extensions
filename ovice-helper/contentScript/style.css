@@ -27,6 +27,7 @@
     text-decoration: none;
     transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1) 0s;
     overflow: visible;
+    cursor: pointer;
 }
 
 .s-border {
@@ -137,6 +138,18 @@
 }
 .s-selector[data-show] {
     visibility: visible;
+}
+
+/* .ovice-helper-toggle-sound-selector,
+.ovice-helper-toggle-size-selector {
+    position: relative;
+    top: -200px;
+    display: flex;
+    justify-content: center;
+} */
+
+#status-menu {
+    visibility: initial !important;
 }
 
 .s-tooltip {

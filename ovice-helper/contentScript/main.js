@@ -20,22 +20,35 @@ function showRoomExitButton() {
 }
 
 function main() {
+    const header = document.querySelector('header > div > div:last-of-type');
     const menuBarRoot = document.querySelector('#MenuBar');
-    const reactionsMenu = document.querySelector('#MenuBar > div:nth-of-type(1)');
     const menuBar = document.querySelector('#MenuBar > div:nth-of-type(2)');
+    let reactionsMenu = document.querySelector('#MenuBar > div:nth-of-type(1)');
+    let reactionsMenuToggleButton = document.querySelector('[aria-label="reactions-menu"]');
 
     const initialize = () => {
         document.querySelectorAll('.ovice-helper').forEach((e) => {
             e.remove();
         });
         menuBar.style.cssText = 'display:flex;align-items:center;overflow:visible';
+        reactionsMenuToggleButton.addEventListener('click', () => {
+            setTimeout(() => {
+                reactionsMenu = document.querySelector('#MenuBar > div:nth-of-type(3)');
+                reactionsMenu.classList.add('s-selector');
+                reactionsMenu.setAttribute('data-show', true);
+            }, 200);
+        });
+        reactionsMenuToggleButton.click();
+        setTimeout(() => {
+            reactionsMenuToggleButton.click();
+        }, 10);
     };
 
     const insertBorder = () => {
         menuBar.insertAdjacentHTML('beforeend', `<div class="ovice-helper s-border"/>`);
     };
 
-    const addButtons = (buttonIcon, image, soundId) => {
+    const addButton = (buttonIcon, image, soundId) => {
         menuBar.insertAdjacentHTML(
             'beforeend',
             `<button class="ovice-helper MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
@@ -97,16 +110,15 @@ function main() {
                 </div>
             </div>`
         );
-
+        reactionsMenuToggleButton.addEventListener('click', () => {
+            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
+            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
+            reactionsMenu.toggleAttribute('data-show', true);
+        });
         document.getElementById('ovice-helper-toggle-sound-selector').addEventListener('click', () => {
             reactionsMenu.removeAttribute('data-show');
             document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
             document.getElementById('ovice-helper-sound-selector').toggleAttribute('data-show');
-        });
-        document.querySelector('[aria-label="reactions-menu"]').addEventListener('click', () => {
-            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
-            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
-            reactionsMenu.toggleAttribute('data-show', true);
         });
         document.querySelectorAll('.ovice-helper-sound').forEach((e) => {
             e.addEventListener('click', (event) => {
@@ -129,24 +141,24 @@ function main() {
                 <div class='ovice-helper-size s-radio-button s-radio-button--active' data-size="24" data-font-size="16" data-image-size="48">
                     小
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="40" data-font-size="24" data-image-size="120">
+                <div class='ovice-helper-size s-radio-button' data-size="40" data-font-size="22" data-image-size="120">
                     中
                 </div>
-                <div class='ovice-helper-size s-radio-button' data-size="64" data-font-size="36" data-image-size="240">
+                <div class='ovice-helper-size s-radio-button' data-size="64" data-font-size="28" data-image-size="240">
                     大
                 </div>
             </div>`
         );
 
+        reactionsMenuToggleButton.addEventListener('click', () => {
+            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
+            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
+            reactionsMenu.toggleAttribute('data-show', true);
+        });
         document.getElementById('ovice-helper-toggle-size-selector').addEventListener('click', () => {
             reactionsMenu.removeAttribute('data-show');
             document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
             document.getElementById('ovice-helper-size-selector').toggleAttribute('data-show');
-        });
-        document.querySelector('[aria-label="reactions-menu"]').addEventListener('click', () => {
-            document.getElementById('ovice-helper-sound-selector').removeAttribute('data-show');
-            document.getElementById('ovice-helper-size-selector').removeAttribute('data-show');
-            reactionsMenu.toggleAttribute('data-show', true);
         });
         document.querySelectorAll('.ovice-helper-size').forEach((e) => {
             e.addEventListener('click', (event) => {
@@ -177,6 +189,18 @@ function main() {
         menuBar.insertAdjacentHTML(
             'beforeend',
             `<button id="ovice-helper-send-message" class="ovice-helper s-tooltip MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" aria-label="reaction" onclick="
+            const emojiCodeMap = {
+                hand: '270B',
+                okay: '1F44C',
+                good: '1F44D',
+                clap: '1F44F',
+                drum: '1F941',
+                raised_hands: '1F64C',
+                hi5: '',
+                love: '2764-FE0F',
+                nope: '274C',
+                tada: '1F389',
+            };
             const sound = document.querySelector('.ovice-helper-sound.s-radio-button--active').getAttribute('data-sound');
             const sizeSelector = document.querySelector('.ovice-helper-size.s-radio-button--active');
             const fontSize = Number(sizeSelector.getAttribute('data-font-size'));
@@ -187,10 +211,10 @@ function main() {
             const activeInput = document.getElementById('ovice-helper-active-input');
             switch(activeInput.value){
                 case 'text':
-                    message = '<div id=&quot;' + sound + '&quot; class=&quot;break-space&quot; style=&quot;font-size:' + fontSize + 'px&quot;>' + text + '</div>';
+                    message = '<div for=&quot;' + sound + '&quot; data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot; style=&quot;font-size:' + fontSize + 'px&quot;>' + text + '</div>';
                     break;
                 case 'image':
-                    message = '<img id=&quot;' + sound + '&quot; class=&quot;break-space&quot; style=&quot;width:' + imageSize + 'px;height:auto;&quot; src=&quot;'+ image +'&quot;/>';
+                    message = '<img for=&quot;' + sound + '&quot; data-emoji-code=&quot;' + emojiCodeMap[sound] + '&quot; class=&quot;break-space&quot; style=&quot;width:' + imageSize + 'px;height:auto;&quot; src=&quot;'+ image +'&quot;/>';
                     break;
             }
             ovice.chat(message);ovice.commitReaction();" data-tooltip="テキスト・画像を送信"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/send-message.png"></button>`
@@ -248,17 +272,17 @@ function main() {
         addSoundSelector();
         addSizeSelector();
         addInput();
-        addButtons('clap.png', 'Clap.png', 'clap');
-        addButtons('hand.png', 'Hand.png', 'good');
-        addButtons('good.png', 'Good.png', 'good');
-        addButtons('drum.png', 'Drum.png', 'drum');
-        addButtons('love.png', 'Love.png', 'love');
-        addButtons('nope.png', 'Nope.png', 'nope');
-        addButtons('tada.png', 'Tada.png', 'tada');
+        addButton('clap.png', 'Clap.png', 'clap');
+        addButton('hand.png', 'Hand.png', 'good');
+        addButton('good.png', 'Good.png', 'good');
+        addButton('drum.png', 'Drum.png', 'drum');
+        addButton('love.png', 'Love.png', 'love');
+        addButton('nope.png', 'Nope.png', 'nope');
+        addButton('tada.png', 'Tada.png', 'tada');
         insertBorder();
-        addButtons('exclamation.png', 'Exclamation.gif', 'good');
-        addButtons('question.png', 'Question.png', 'love');
-        addButtons('sweat.png', 'Sweat.gif', 'love');
-        addButtons('kusa.png', 'Kusa.gif', 'drum');
+        addButton('exclamation.png', 'Exclamation.gif', 'good');
+        addButton('question.png', 'Question.png', 'love');
+        addButton('sweat.png', 'Sweat.gif', 'love');
+        addButton('kusa.png', 'Kusa.gif', 'drum');
     })();
 }
