@@ -6,7 +6,7 @@
     vertical-align: middle;
     appearance: none;
     text-align: center;
-    width: 44px;
+    width: 40px;
     height: 44px;
     color: rgb(0, 0, 0);
     background-color: rgba(0, 0, 0, 0);
@@ -135,6 +135,11 @@
 
 .s-selector {
     visibility: hidden;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    bottom: 100px;
 }
 .s-selector[data-show] {
     visibility: visible;

@@ -1,28 +1,26 @@
 setInterval(() => {
     if (
         typeof window !== 'undefined' &&
-        !/@room/.test(window.location.href) &&
         document.querySelectorAll('.ovice-helper').length < 1 &&
         document.querySelector('#MenuBar')
     ) {
         main();
     }
-    if (
-        document.querySelector('#MenuBar').parentNode.querySelectorAll('._alignItems-stretch').length > 0 &&
-        document.querySelector('#MenuBar').parentNode.querySelector('._alignItems-stretch').style.display !== 'contents'
-    ) {
-        showRoomExitButton();
-    }
+    showRoomExitButton();
 }, 2000);
 
 function showRoomExitButton() {
-    document.querySelector('#MenuBar').parentNode.querySelector('._alignItems-stretch').style.cssText = 'display: contents;';
+    const roomExitButton = document.querySelector('._opacity-0enter-0 > .MuiPaper-root');
+    if (roomExitButton) {
+        roomExitButton.style.cssText = 'top:-140px;bottom:85px;';
+    }
 }
 
 function main() {
     const header = document.querySelector('header > div > div:last-of-type');
     const menuBarRoot = document.querySelector('#MenuBar');
     const menuBar = document.querySelector('#MenuBar > div:nth-of-type(2)');
+
     let reactionsMenu = document.querySelector('#MenuBar > div:nth-of-type(1)');
     let reactionsMenuToggleButton = document.querySelector('[aria-label="reactions-menu"]');
 
@@ -30,7 +28,8 @@ function main() {
         document.querySelectorAll('.ovice-helper').forEach((e) => {
             e.remove();
         });
-        menuBar.style.cssText = 'display:flex;align-items:center;overflow:visible';
+        menuBar.style.cssText = 'display:flex;align-items:center;overflow:visible;max-width:unset;';
+
         reactionsMenuToggleButton.addEventListener('click', () => {
             setTimeout(() => {
                 reactionsMenu = document.querySelector('#MenuBar > div:nth-of-type(3)');
@@ -279,7 +278,6 @@ function main() {
         addButton('love.png', 'Love.png', 'love');
         addButton('nope.png', 'Nope.png', 'nope');
         addButton('tada.png', 'Tada.png', 'tada');
-        insertBorder();
         addButton('exclamation.png', 'Exclamation.gif', 'good');
         addButton('question.png', 'Question.png', 'love');
         addButton('sweat.png', 'Sweat.gif', 'love');
