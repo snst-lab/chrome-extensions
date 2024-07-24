@@ -92,32 +92,35 @@ function main() {
     menuBar.insertAdjacentHTML(
       'beforeend',
       `<button id="ovice-helper-toggle-sound-selector" class="ovice-helper s-tooltip MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium s-ext-btn" tabindex="0" type="button" data-tooltip="リアクション時の音声設定"><img width="24" height="24" src="//raw.githubusercontent.com/snst-lab/chrome-extensions/main/ovice-helper/icon/music.png"></button>`
-    );
+    ); 
     menuBarRoot.insertAdjacentHTML(
       'afterbegin',
       `<div id="ovice-helper-sound-selector" class='ovice-helper s-selector MuiPaper-root MuiPaper-elevation MuiPaper-rounded MuiPaper-elevation0 MuiCard-root css-1ypxb7f'>
                 <div class='ovice-helper-sound s-radio-button s-radio-button--active' data-sound="">
                     Unset
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="good" onclick="ovice.playSound('/assets/reaction/sword.mp3',0.08)">
-                    Okay
+                <div class='ovice-helper-sound s-radio-button' data-sound="good" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/good.mp3',0.3)">
+                    Good
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="love" onclick="ovice.playSound('/assets/reaction/love.mp3',0.3)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="hand" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/sword.mp3',0.3)">
+                    Hand
+                </div>
+                <div class='ovice-helper-sound s-radio-button' data-sound="love" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/love.mp3',0.3)">
                     Love
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="hi5" onclick="ovice.playSound('/assets/reaction/high_five.mp3',0.12)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="hi5" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/high_five.mp3',0.2)">
                     Five
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="clap" onclick="ovice.playSound('/assets/reaction/clapping.mp3',0.03)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="clap" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/clapping.mp3',0.2)">
                     Clap
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="drum" onclick="ovice.playSound('/assets/reaction/drum.mp3',0.03)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="drum" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/drum.mp3',0.2)">
                     Drum
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="nope" onclick="ovice.playSound('/assets/reaction/nope.mp3',0.08)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="nope" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/nope.mp3',0.2)">
                     Nope
                 </div>
-                <div class='ovice-helper-sound s-radio-button' data-sound="tada" onclick="ovice.playSound('/assets/reaction/tada.mp3',0.04)">
+                <div class='ovice-helper-sound s-radio-button' data-sound="tada" onclick="ovice.playSound_('https://app.ovice.com/assets/reaction/tada.mp3',0.2)">
                     Tada
                 </div>
             </div>`
@@ -275,13 +278,13 @@ function main() {
     addSizeSelector();
     addInput();
     addButton('clap.png', 'Clap.png', 'clap');
-    addButton('hand.png', 'Hand.png', 'good');
+    addButton('hand.png', 'Hand.png', 'hand');
     addButton('good.png', 'Good.png', 'good');
     addButton('drum.png', 'Drum.png', 'drum');
     addButton('love.png', 'Love.png', 'love');
     addButton('nope.png', 'Nope.png', 'nope');
     addButton('tada.png', 'Tada.png', 'tada');
-    addButton('exclamation.png', 'Exclamation.gif', 'good');
+    addButton('exclamation.png', 'Exclamation.gif', 'hand');
     addButton('question.png', 'Question.png', 'love');
     addButton('sweat.png', 'Sweat.gif', 'love');
     addButton('kusa.png', 'Kusa.gif', 'drum');
