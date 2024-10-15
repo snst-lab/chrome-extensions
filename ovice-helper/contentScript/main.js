@@ -1,9 +1,12 @@
+
+
 setInterval(() => {
   if (
     typeof window !== 'undefined' &&
     document.querySelectorAll('.ovice-helper').length < 1 &&
-    document.querySelector('#MenuBar')
+    document.querySelector('[aria-label="status-menu"]')
   ) {
+    console.log('ovice-helper: main');
     main();
   }
   showRoomExitButton();
@@ -18,12 +21,10 @@ function showRoomExitButton() {
 
 function main() {
   //   const header = document.querySelector('header > div > div:last-of-type');
-  const menuBarRoot = document.querySelector('#MenuBar');
-  const menuBar = document.querySelector('#MenuBar > div:nth-of-type(2)');
-
   const statusMenuToggleButton = document.querySelector('[aria-label="status-menu"]');
   const reactionMenuToggleButton = document.querySelector('[aria-label="reactions-menu"]');
-  // const hiddenMenuContainer = document.querySelector('#MenuBar > div:nth-of-type(1)');
+  const menuBar = statusMenuToggleButton.parentElement;
+  const menuBarRoot = menuBar.parentElement;
 
   const initialize = () => {
     document.querySelectorAll('.ovice-helper').forEach((e) => {
